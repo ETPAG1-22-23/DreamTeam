@@ -14,25 +14,30 @@ public class testSpline : MonoBehaviour
 
     private Vector3[] pastPosition = new Vector3 [5];
     private int i = 0;
+    private bool isTimed = true;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+   
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         interpolateAmount = (interpolateAmount + Time.deltaTime) % 1f;
-        gameObject.transform.position = CubicLerp(pointA.position, pointB.position, pointC.position, pointD!.position, interpolateAmount);
+        //gameObject.transform.position = CubicLerp(pointA.position, pointB.position, pointC.position, pointD!.position, interpolateAmount);
 
 
-        //Debug.Log(test(gameObject.transform.position));
-        StartCoroutine(waiter());
+        if (isTimed == true) 
+        {
+            StartCoroutine(addPastPosition());
+        }
+
+        
     }
 
-    #region testLerp
+    #region Interpolation
     private Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c, float t)
     {
         Vector3 ab = Vector3.Lerp(a, b, t);
@@ -48,49 +53,51 @@ public class testSpline : MonoBehaviour
     }
     #endregion
 
-
-    private Vector3 test(Vector3 Player)
+    #region Tableau Position
+    IEnumerator addPastPosition()
     {
-        if ( i < pastPosition.Length - 1)
+        isTimed = false;
+
+        if (i < pastPosition.Length)
         {
-            pastPosition[i] = Player;
+            pastPosition[i] = gameObject.transform.position;
+            //GameObject point = new GameObject();
+            //point.name = "point" + i;
+
+            //faire tab[,] ->  tab{{point, posPoint},{...}}, set les points dès l'ini du tab, et updt position comme prévu
+
+
             i++;
         }
         else
         {
+            showTab();
             i = 0;
-            pastPosition[i] = Player;
+            pastPosition[i] = gameObject.transform.position;
         }
-        return pastPosition[0];
-    
-    }
 
-    IEnumerator waiter()
-    {
-        float counter = 0;
+        yield return new WaitForSeconds(0.5f);
 
-        float waitTime = 1;
-
-        while(counter < waitTime)
-        {
-            counter += Time.deltaTime;
-            Debug.Log("Counter: " +counter);
-            if (i < pastPosition.Length - 1)
-            {
-                pastPosition[i] = gameObject.transform.position;
-                i++;
-            }
-            else
-            {
-                i = 0;
-                pastPosition[i] = gameObject.transform.position;
-            }
-            
-            yield return null;
-        }
-        Debug.Log(pastPosition[0]);
         
-
+        isTimed = true;
+ 
     }
 
+    void showTab()
+    {
+        for (int k = 0; k < i; k++)
+        {
+            Debug.Log(k);
+            Debug.Log(pastPosition[k]);
+        }
+    }
+    #endregion
+
+    private void TimeRewind()
+    {
+        //Créa bool isRewinded pour contrôler le stockage des positions
+        //Afficher Alpha du sprite sur points 
+        //Set Interpolation (voir ci-dessus) avec les points crées
+        //Lancer méthode quand touche pressée + activer Lerp + "Animation"
+    }
 }
