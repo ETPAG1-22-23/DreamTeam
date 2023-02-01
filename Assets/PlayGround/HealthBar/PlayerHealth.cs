@@ -44,9 +44,10 @@ public class PlayerHealth : MonoBehaviour
         healthBarRef.SetHealth(currentHealth);
     }
 
-    private void Death()
+    public bool Death()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        animController.SetBool("isDead", true);       
+        animController.SetBool("isDead", true);
+        return true;
     }
 }

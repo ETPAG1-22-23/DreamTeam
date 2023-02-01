@@ -18,5 +18,8 @@ public class CameraManager : MonoBehaviour
     {
         Vector3 targetPosition = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y, -10);
         gameObject.transform.position = Vector3.SmoothDamp(gameObject.transform.position, targetPosition, ref refVelocity, smoothTime);
+
+
     }
+
 }

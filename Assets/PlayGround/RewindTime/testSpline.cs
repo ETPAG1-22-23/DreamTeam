@@ -16,6 +16,8 @@ public class testSpline : MonoBehaviour
     private int i = 0;
     private bool isTimed = true;
 
+    
+
 
     void Start()
     {

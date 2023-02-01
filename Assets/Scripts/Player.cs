@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator animController;
     float horizontal_value;
     Vector2 ref_velocity = Vector2.zero;
+
 
     float jumpForce = 12f;
 
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] bool can_jump = false;
     [Range(0, 1)][SerializeField] float smooth_time = 0.5f;
 
+    public Vector3 PosRespawn = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animController = GetComponent<Animator>();
         //Debug.Log(Mathf.Lerp(current, target, 0));
+
+        SetPosRespawn(PosRespawn);
     }
 
     // Update is called once per frame
@@ -63,5 +68,10 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {   
         animController.SetBool("Jumping", false);        
+    }
+
+    public void SetPosRespawn (Vector3 Position)
+    {
+        gameObject.transform.position = Position;
     }
 }
