@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     public Vector3 PosRespawn = Vector3.zero;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
