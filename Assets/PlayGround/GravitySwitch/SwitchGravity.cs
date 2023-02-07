@@ -7,6 +7,7 @@ public class SwitchGravity : MonoBehaviour
     Rigidbody2D rb;
     bool top;
     Player player;
+    bool facingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class SwitchGravity : MonoBehaviour
         { 
             rb.gravityScale *= -1;
             Rotation();
+            Flip();
         }
     }
 
@@ -40,8 +42,12 @@ public class SwitchGravity : MonoBehaviour
         top = !top;
 
     }
+    //mettre le player à l'endroit (qu'il regarde vers la droite lorsqu'il va à droite)
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 inverse = transform.localScale;
+        inverse.x *= -1;
+        transform.localScale = inverse;
+    }
 }
-
-// à rajouter/modifier : 
-// - Le saut à inverser, modifier les controles du player pour modifier son saut lorsque la gravité est inversée.
-// - L'animation du personnage à flip lorsque la gravité est inversée (qu'il regarde dans le sens de la marche).
