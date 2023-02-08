@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         if(horizontal_value > 0) sr.flipX = false;
         else if (horizontal_value < 0) sr.flipX = true;
         
-        animController.SetFloat("Speed", Mathf.Abs(horizontal_value));
+        animController.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
    
         if (Input.GetButtonDown("Jump") && can_jump)
         {

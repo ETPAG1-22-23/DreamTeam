@@ -198,18 +198,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 76581215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45eaf77b468ea94fbeefff520e8d6c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f8daf7bcbdd2cd4c84b9504129df408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 1096524596}
-  pointB: {fileID: 561848053}
-  pointC: {fileID: 238866647}
-  pointD: {fileID: 1141114717}
-  Alpha0: {fileID: 1024814571}
-  Alpha1: {fileID: 843369395}
-  Alpha2: {fileID: 1845929208}
-  Alpha3: {fileID: 281626599}
-  interpolateAmount: 0
 --- !u!1 &238866645
 GameObject:
   m_ObjectHideFlags: 0
