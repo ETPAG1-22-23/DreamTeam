@@ -4,37 +4,16 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    [SerializeField] Player playerRef;
-    Rigidbody2D rb;
-    PlayerHealth healthRef;
-    private Vector3 posCheckPoint;
+    [SerializeField]private PlayerHealth heal;
 
-
-    public static Vector2 lastCheckPointPos;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    
-  
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        if(collision.gameObject.tag == "Player")
         {
-            Debug.Log(playerRef.PosRespawn);
-            playerRef.PosRespawn = gameObject.transform.position;
-            Debug.Log(playerRef.PosRespawn);
+            Debug.Log(heal.PosRespawn);
+            heal.PosRespawn = gameObject.transform.position;
+            Destroy(gameObject);
         }
 
     

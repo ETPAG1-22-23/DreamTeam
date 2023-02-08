@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] Health healthBarRef;
+    //[SerializeField] Health healthBarRef;
     Rigidbody2D rb;
     Animator animController;
 
     private int maxHealth = 100;
-    private int currentHealth;
-    
-
+    public int currentHealth = 0;
+    Vector2 ref_velocity = Vector2.zero;
+    public Vector3 PosRespawn = Vector3.zero;
 
 
     // Start is called before the first frame update
@@ -21,8 +21,8 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animController= GetComponent<Animator>();
         currentHealth = maxHealth;
-        healthBarRef.SetMaxHealth(maxHealth);
-
+        //healthBarRef.SetMaxHealth(maxHealth);
+        SetPosRespawn(PosRespawn);
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(25);
         }
 
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
             Death();
         }
@@ -41,13 +41,23 @@ public class PlayerHealth : MonoBehaviour
     private void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBarRef.SetHealth(currentHealth);
+        //healthBarRef.SetHealth(currentHealth);
     }
 
-    public bool Death()
+    public void Death()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         animController.SetBool("isDead", true);
-        return true;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gameObject.transform.position = PosRespawn;
+            currentHealth = 100;
+            animController.SetBool("isDead", false);
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    }
+    public void SetPosRespawn(Vector3 Position)
+    {
+        gameObject.transform.position = PosRespawn;
     }
 }
