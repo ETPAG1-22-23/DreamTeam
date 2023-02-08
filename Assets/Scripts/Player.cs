@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
     
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
         if(horizontal_value > 0) sr.flipX = false;
         else if (horizontal_value < 0) sr.flipX = true;
         
-        animController.SetFloat("Speed", Mathf.Abs(horizontal_value));
+        animController.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
    
         if (Input.GetButtonDown("Jump") && can_jump)
         {
@@ -55,10 +57,21 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         if (is_jumping && can_jump)
-        {           
-            is_jumping = false;
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            can_jump = false;
+        {
+            if (rb.gravityScale > 0)
+            {
+                is_jumping = false;
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                can_jump = false;
+
+            }
+            else if (rb.gravityScale < 0)
+            {
+                is_jumping = false;
+                rb.AddForce(new Vector2(0, jumpForce * -1), ForceMode2D.Impulse);
+                can_jump = false;
+
+            }
         }
         Vector2 target_velocity = new Vector2(horizontal_value * moveSpeed_horizontal * Time.fixedDeltaTime, rb.velocity.y);
         rb.velocity = Vector2.SmoothDamp(rb.velocity, target_velocity, ref ref_velocity, 0.05f);
